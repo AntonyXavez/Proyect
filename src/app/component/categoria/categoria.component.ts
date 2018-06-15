@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from '../../interface/categoria';
+import { Category } from '../../interface/category';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,10 +13,10 @@ import { ProductosService } from '../../providers/productos.service';
 })
 export class CategoriaComponent implements OnInit {
 
-  categoria: Categoria = {
+  category: Category = {
     id: 0,
-    nombre: '',
-    descripcion: ''
+    name: '',
+    description: ''
   }
 
   idx: any;

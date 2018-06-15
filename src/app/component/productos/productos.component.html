@@ -16,31 +16,35 @@
     <thead class="thead-inverse">
       <tr>
         <th>No.</th>
-        <th>ID</th>
         <th [class.active]="order1 === 'nombre'" (click)="sortTable('nombre')">
           Nombre
           <span [hidden]="reverse">▼</span
           ><span [hidden]="!reverse">▲</span>
         </th>
         <th>Precio</th>
-        <th>Categoria</th>
+        <th>Marcar</th>
+        <th>Stock</th>
+        <th>Descrpción</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let producto of listaOrdenada | sortingCompanies:path:order ; let i = index">
+      <!-- | sortingCompanies:path:order -->
+      <tr *ngFor="let k of productsList | keys | sortingCompanies:path:order ; let i = index">
         <th>{{ i + 1 }}</th>
-        <th>{{ producto.id }}</th>
-        <td>{{ producto.name }}</td>
-        <td>{{ producto.price | currency: 'EUR' }}</td>
+        <td>{{ productsList[k].name }}</td>
+        <td>{{ productsList[k].price | currency: 'EUR' }}</td>
+        <td>{{ productsList[k].brand }}</td>
+        <td>{{ productsList[k].stock }}</td>
+        <td>{{ productsList[k].description }}</td>
         <!-- <td>{{ producto.categoria.nombre }}</td> -->
         <td class="text-right w120">
-          <button [routerLink]="['/producto', i]"
+          <button [routerLink]="['/producto', k]"
                   type="button" class="btn btn-outline-success">
             Editar <i class="far fa-edit"></i>
           </button>
           <!-- Button trigger modal -->
-          <button (click)="setValor(i)" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+          <button (click)="setValor(k)" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
             Eliminar <i class="far fa-trash-alt"></i>
           </button>
           <!-- Modal -->
@@ -60,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Cancelar</button>
-                  <button (click)="borrarProducto()"
+                  <button (click)="deleteProduct()"
                     type="button" class="btn btn-outline-danger" data-dismiss="modal">
                     Aceptar <i class="far fa-trash-alt"></i>
                   </button>

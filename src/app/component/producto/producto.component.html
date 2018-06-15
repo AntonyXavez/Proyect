@@ -17,56 +17,119 @@
 
     <div class="col-md-5">
 
-      <form (ngSubmit)="guardarProducto()" #forma="ngForm">
+      <form (ngSubmit)="guardarProducto()" #forma="ngForm" novalidate="">
 
         <div class="form-group"
-             [ngClass]="{ 'has-danger' : nombre.errors?.minlength || nombre.errors?.patter || nombre.errors?.required && nombre.touched}">
-          <label>Nombre</label>
-          <input [(ngModel)]="producto.nombre"
-                 type="text" name="nombre"
+             [ngClass]="{ 'has-danger' : name.errors?.minlength || name.errors?.patter || name.errors?.required && name.touched}">
+          <label><strong>Nombre</strong></label>
+          <input [(ngModel)]="product.name"
+                 type="text" name="name"
                  class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
                  placeholder="Nombre" autocomplete="off"
-                 required minlength="7" #nombre="ngModel">
+                 required minlength="4" #name="ngModel">
                  <br>
-                 <div *ngIf="nombre.errors?.required && nombre.touched"
+                 <div *ngIf="name.errors?.required && name.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
                 </div>
-                 <div *ngIf="nombre.errors?.minlength"
+                 <div *ngIf="name.errors?.minlength"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
-                  <strong>Minimo {{ nombre.errors.minlength.requiredLength }} caracteres</strong>
+                  <strong>Minimo {{ name.errors.minlength.requiredLength}} caracteres</strong>
                 </div>
 
         </div>
 
         <div class="form-group"
-             [ngClass]="{ 'has-danger' : precio.errors?.minlength || precio.errors?.required && precio.touched }">
-          <label>Precio</label>
+             [ngClass]="{ 'has-danger' : price.errors?.minlength || price.errors?.required && price.touched }">
+          <label><strong>Precio</strong></label>
           <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input [(ngModel)]="producto.precio" step="1"
-                   type="number" name="precio" min="0"
+            <input [(ngModel)]="product.price" step="1"
+                   type="number" name="price" min="0"
                    class="form-control"  autocomplete="off"
-                   required minlength="1" #precio="ngModel">
+                   required minlength="1" #price="ngModel">
            </div>
+           <br>
+           <div *ngIf="price.errors?.required && price.touched"
+           class="alert alert-danger form-control-feadback"
+           role="alert">
+           <strong>Este Campo es Requerido</strong>
+         </div>
+         <div *ngIf="price.errors?.minlength"
+         class="alert alert-danger form-control-feadback"
+         role="alert">
+         <strong>Minimo {{ price.errors.minlength.requiredLength }} caracteres</strong>
+       </div>
+
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{ 'has-danger' : brand.errors?.minlength || brand.errors?.required && brand.touched }">
+          <label><strong>Marca</strong></label>
+          <input [(ngModel)]="product.brand"
+                 type="text" name="brand"
+                 class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
+                 placeholder="Marca" autocomplete="off"
+                 required minlength="4" #brand="ngModel">
                  <br>
-                 <div *ngIf="precio.errors?.required && precio.touched"
+                 <div *ngIf="brand.errors?.required && brand.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
                 </div>
-                <div *ngIf="precio.errors?.minlength && precio.touched"
+                 <div *ngIf="brand.errors?.minlength"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Minimo {{ brand.errors.minlength.requiredLength}} caracteres</strong>
+                </div>
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{ 'has-danger' : stock.errors?.minlength || stock.errors?.required && stock.touched }">
+          <label><strong>Stock</strong></label>
+            <input [(ngModel)]="product.stock" step="1"
+                   type="number" name="stock" min="0"
+                   class="form-control"  autocomplete="off"
+                   required minlength="1" #stock="ngModel">
+                 <br>
+                 <div *ngIf="stock.errors?.required && stock.touched"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Este Campo es Requerido</strong>
+                </div>
+                <div *ngIf="stock.errors?.minlength"
                      class="alert alert-danger form-control-feadback"
                      role="alert">
-                 <strong>Minimo {{ precio.errors.minlength.requiredLength }} caracteres</strong>
+                 <strong>Minimo {{ stock.errors.minlength.requiredLength }} caracteres</strong>
                </div>
 
         </div>
 
+        <div class="form-group"
+             [ngClass]="{ 'has-danger' : description.errors?.minlength || description.errors?.required && description.touched }">
+          <label><strong>Descripción</strong></label>
+          <input [(ngModel)]="product.description"
+                 type="text" name="description"
+                 class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
+                 placeholder="descripción" autocomplete="off"
+                 required minlength="4" #description="ngModel">
+                 <br>
+                 <div *ngIf="description.errors?.required && description.touched"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Este Campo es Requerido</strong>
+                </div>
+                 <div *ngIf="description.errors?.minlength"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Minimo {{ description.errors.minlength.requiredLength}} caracteres</strong>
+                </div>
+        </div>
+
         <div class="form-group">
-          <label>Categoria</label>
+          <label><strong>Categoria</strong></label>
           <select class="form-control" [(ngModel)]="producto.categoria.id" name="categoria">
             <option *ngFor="let categoria of categoriesList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
           </select>

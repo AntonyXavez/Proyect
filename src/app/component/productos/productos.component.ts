@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../providers/productos.service';
 import { CategoriasService } from '../../providers/categorias.service';
-import { Categoria } from '../../interface/categoria';
-import { Producto } from '../../interface/producto';
+import { Category } from '../../interface/category';
+import { Product } from '../../interface/product';
 import { ToastrService } from 'ngx-toastr';
 import { SortingCompaniesPipe } from '../../pipe/sorting-companies.pipe';
 
@@ -13,51 +13,57 @@ import { SortingCompaniesPipe } from '../../pipe/sorting-companies.pipe';
 })
 export class ProductosComponent implements OnInit {
 
-  productos: Producto[] =[];
-  listaOrdenada: Producto[] = [];
-  categorias: Categoria[] = [];
-  valor: number = 0;
+  products: Product[] =[];
+  listaOrdenada: Product[] = [];
+  categorias: Category[] = [];
+  valor: string = '';
   path: string[] = ['producto'];
   order: number = 1; // 1 asc, -1 desc;
   reverse: boolean = false;
   order1: string = 'nombre';
 
+  productsList: any[] = [];
+
   constructor(
     private _pS: ProductosService,
     private _cS: CategoriasService,
     private toastr: ToastrService
-   ){  }
+   ){
 
-  ngOnInit(): void {
+     this._pS.getProducts().subscribe( data=>{
+        this.productsList = data;
+     })
 
-    this.listaOrdenada = this._pS.productsList;
-    console.log(this.listaOrdenada)
+    }
 
-  }
+  ngOnInit() { }
 
-  setValor( idx: number ){
+  setValor( idx: string ){
 
     this.valor = idx;
 
   }
 
-  borrarProducto(){
+  deleteProduct(){
 
-    // let idx = this.valor;
-    //
-    // let producto: Producto = this._pS.productosList[idx];
-    //
-    // this._pS.borrarProducto( idx );
-    // this._pS.cargarDataProductos();
-    // this.toastr.success('Operación Realizada Correctamente', 'Categoria Eliminada', {
-    //   timeOut: 4000,
-    //   positionClass: 'toast-top-right'
-    // });
+    this._pS.deleteProduct( this.valor )
+            .subscribe(
+              respuesta =>{
+                if (respuesta) {
+                    console.error(respuesta)
+                } else {
+                  delete this.productsList[this.valor];
+                  this.toastr.error('Producto Eliminado', 'Operación Realizada Correctamente', {
+                    timeOut: 4000,
+                    positionClass: 'toast-top-center',
+                  });
+                }
+              }
+            )
 
   }
 
   sortTable(prop: string) {
-    console.log(this.order)
      this.path = prop.split('.')
      this.order = this.order * (-1); // change order
      if (this.order1 === prop) {

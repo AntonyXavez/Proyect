@@ -1,0 +1,7 @@
+{
+  "/Inventory":{
+    "target": "https://store-3a51c.firebaseio.com/Inventory",
+    "secure": false,
+    "changeOrigin": false
+  }
+}

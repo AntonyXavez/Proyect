@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../providers/categorias.service';
 import { ProductosService } from '../../providers/productos.service';
-import { Categoria } from '../../interface/categoria';
-import { Producto } from '../../interface/producto';
+import { Category } from '../../interface/category';
+import { Product } from '../../interface/product';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -12,8 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CategoriasComponent implements OnInit {
 
-  categorias: Categoria[] = [];
-  listaOrdenada: Categoria[] = [];
+  categories: Category[] = [];
+  listaOrdenada: Category[] = [];
   valor: number = 0;
   path: string[] = ['categoria'];
   order: number = 1; // 1 asc, -1 desc;

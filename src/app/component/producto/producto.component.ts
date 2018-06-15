@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Producto } from '../../interface/producto';
-import { Categoria } from '../../interface/categoria';
+import { Product } from '../../interface/product';
+import { Category } from '../../interface/category';
 import { ProductosService } from '../../providers/productos.service';
 import { CategoriasService } from '../../providers/categorias.service';
 
@@ -15,18 +15,21 @@ import { CategoriasService } from '../../providers/categorias.service';
 })
 export class ProductoComponent implements OnInit {
 
-  producto: Producto = {
+  product: Product = {
     id: 0,
-    nombre: '',
-    precio: 0,
-    categoria: {
+    name: '',
+    brand: '',
+    description: '',
+    price: null,
+    stock: null,
+    category: {
       id: 0,
-      nombre: '',
-      descripcion: ''
+      name: '',
+      description: ''
     }
   }
 
-  categorias: Categoria[] = [];
+  categories: Category[] = [];
   idx: any;
   path: string[] = ['nombre'];
 
@@ -38,13 +41,15 @@ export class ProductoComponent implements OnInit {
     private toastr: ToastrService
   ){
 
-    // this.activatedRoute.params.subscribe( parametros =>{
-    //   this.idx = parametros['id']
-    //   if ( this.idx !== 'nuevo' ) {
-    //
-    //     this.producto = this._pS.productosList[this.idx]
-    //   }
-    // })
+    this.activatedRoute.params.subscribe( parametros =>{
+      this.idx = parametros['id']
+      if ( this.idx !== 'nuevo' ) {
+
+        this._pS.getProduct( this.idx )
+                .subscribe( product => this.product = product );
+
+      }
+    })
 
   }
 
@@ -53,38 +58,30 @@ export class ProductoComponent implements OnInit {
 
   guardarProducto(){
 
-    // if (this.producto.categoria.id === 0) {
-    //   this.toastr.error('Debe de elegir una categoria', 'ERROR', {
-    //     timeOut: 4000,
-    //     positionClass: 'toast-top-right'
-    //   });
-    //   return;
-    // }
-    //
-    // if (this.idx != 'nuevo') {
-    //   this._pS.actualizarProducto( this.producto, this.idx );
-    //   this.toastr.success('Operación Realizada Correctamente', 'Producto Actualizado', {
-    //     timeOut: 4000,
-    //     positionClass: 'toast-top-right'
-    //   });
-    //   this.router.navigate( ['/productos'] )
-    //   return;
-    // } else {
-    //   this.producto.id = Math.floor(Math.random() * 1000000)
-    //   let listaCategorias: Categoria[] = this._cS.categoriasList;
-    //   for (let categoria1 of listaCategorias) {
-    //       if (categoria1.id == this.producto.categoria.id) {
-    //           this.producto.categoria = categoria1;
-    //       }
-    //   }
-    //   this._pS.nuevoproducto( this.producto )
-    //     this.router.navigate( ['/productos'] )
-    //     this.toastr.success('Operación Realizada Correctamente', 'Producto Agregado', {
-    //       timeOut: 4000,
-    //       positionClass: 'toast-top-right'
-    //     });
-    // }
-    //
+    if (this.idx == 'nuevo') {
+        this._pS.newProduct( this.product )
+                .subscribe(
+                  data =>{
+                  this.router.navigate( ['/productos'] );
+                  this.toastr.success('Producto Agregado', 'Operación Realizada Correctamente', {
+                    timeOut: 4000,
+                    positionClass: 'toast-top-right',
+                  });
+                },
+                error=> console.error(error))
+    } else {
+      this._pS.updateProduct( this.product, this.idx )
+              .subscribe(
+                data =>{
+                    this.router.navigate( ['/productos'] );
+                    this.toastr.info('Producto Actualizado', 'Operación Realizada Correctamente', {
+                      timeOut: 4000,
+                      positionClass: 'toast-top-right',
+                    });
+                  },
+                  error => console.log(error)
+                )
+    }
 
   }
 

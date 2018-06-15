@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/Rx';
-import { Categoria } from '../interface/categoria';
+import { Category } from '../interface/category';
 
 @Injectable()
 export class CategoriasService {
 
   urlCategories: string = 'https://store-3a51c.firebaseio.com/category.json'
-  public categoriesList: Categoria[] = [];
+  public categoriesList: Category[] = [];
 
   constructor(
                 private http: Http

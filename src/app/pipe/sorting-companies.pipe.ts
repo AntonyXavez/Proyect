@@ -1,17 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Producto } from '../interface/producto';
+import { Product } from '../interface/product';
 
 @Pipe({
   name: 'sortingCompanies'
 })
 export class SortingCompaniesPipe implements PipeTransform {
 
-  transform(productos: Producto[], path: string[], order: number = 1): Producto[] {
+  transform(productos: Product[], path: string[], order: number = 1): Product[] {
 
    // Check if is not null
    if (!productos || !path || !order) return productos;
 
-   return productos.sort((a: Producto, b: Producto) => {
+   return productos.sort((a: Product, b: Product) => {
      // We go for each property followed by path
      path.forEach(property => {
        a = a[property];

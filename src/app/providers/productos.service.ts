@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/Rx';
-import { Producto } from '../interface/producto';
+import { Product } from '../interface/product';
 
 @Injectable()
 export class ProductosService {
 
   productsList: any[] = [];
-  urlGetProducts: string = 'https://store-3a51c.firebaseio.com/Inventory.json'
+  urlGetProducts: string = 'https://store-3a51c.firebaseio.com/Inventory.json';
+  urlGetProduct: string = 'https://store-3a51c.firebaseio.com/Inventory/';
 
   constructor( private http: Http ) {
-
-    this.getProducts().subscribe( data=>{
-       this.productsList = data;
-       console.log(this.listaOrdenada)
-    })
 
   }
 
@@ -24,14 +20,61 @@ export class ProductosService {
       'Content-Type':'application/json'
     });
 
-    return this.http.get( this.urlGetProducts, { headers } )
+    return this.http.get( this.urlGetProducts , { headers } )
                     .map( res => res.json() );
+
+  }
+
+  deleteProduct( Key$: string ){
+
+    let url = `${ this.urlGetProduct }/${ Key$ }.json`;
+    return this.http.delete( url )
+                    .map( res => res.json() );
+
+  }
+
+  newProduct( product: Product ){
+
+    let body = JSON.stringify( product );
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+
+    return this.http.post( this.urlGetProducts, body, { headers } )
+                    .map( res =>{
+                      return res.json();
+                    })
+
+  }
+
+  getProduct( key$:string ){
+
+    let url = `${ this.urlGetProduct }/${ key$ }.json`;
+    return this.http.get( url )
+                    .map( res => res.json());
+
+  }
+
+  updateProduct( product: Product, key$: string ){
+
+    let body = JSON.stringify( product );
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+
+    let url = `${ this.urlGetProduct }/${ key$ }.json`;
+
+    return this.http.put( url, body, { headers } )
+                    .map( res =>{
+                      return res.json();
+                    })
+
 
   }
 
   buscadorProductosNombre( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
     termino = termino.toLowerCase();
 
     for (let producto of this.productsList) {
@@ -50,7 +93,7 @@ export class ProductosService {
 
   buscadorProductosPrecioMayorIgual( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
 
     for (let producto of this.productsList) {
 
@@ -68,7 +111,7 @@ export class ProductosService {
 
   buscadorProductosPrecioMenorIgual( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
 
     for (let producto of this.productsList) {
 
@@ -86,7 +129,7 @@ export class ProductosService {
 
   buscadorProductosPrecioIgual( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
 
     for (let producto of this.productsList) {
 
@@ -104,7 +147,7 @@ export class ProductosService {
 
   buscadorProductosPrecioMayor( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
 
     for (let producto of this.productsList) {
 
@@ -122,7 +165,7 @@ export class ProductosService {
 
   buscadorProductosPrecioMenor( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
 
     for (let producto of this.productsList) {
 
@@ -140,7 +183,7 @@ export class ProductosService {
 
   buscadorProductosId( termino: any ){
 
-    let products: Producto[] = [];
+    let products: Product[] = [];
     termino = termino;
 
     for (let producto of this.productsList) {
