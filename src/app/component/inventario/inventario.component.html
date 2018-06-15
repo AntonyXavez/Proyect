@@ -1,0 +1,46 @@
+<div class="container main-container">
+
+  <div class="d-flex justify-content-between">
+    <h1>Inventario</h1>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Categoria:</label>
+    <div class="col-sm-6">
+      <select (change)="MostrarCate()" class="form-control" [(ngModel)]="categoria.id" name="nombre">
+        <option [value]="-1"></option>
+        <option *ngFor="let categoria of _cS.categoriasList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngFor="let categoria of _cS.categoriasList">
+    <div *ngIf="categoria.nombre == nombre || nombre == null">
+      <h2 *ngIf="categoria.nombre == nombre || nombre == null">Categoria: {{ categoria.nombre }} </h2>
+      <h3 *ngIf="categoria.nombre == nombre || nombre == null">Total de Productos: {{ getsum( categoria.nombre, _pS.productosList ) }}</h3>
+      <br>
+      <table *ngIf="categoria.nombre == nombre || nombre == null" class="table table-bordered">
+        <thead class="thead-inverse">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of _pS.productosList; let i = index">
+            <th *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.id }}</th>
+            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.nombre }}</td>
+            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.precio | currency: 'EUR' }}</td>
+            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.categoria.nombre }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+
+</div>

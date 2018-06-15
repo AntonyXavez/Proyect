@@ -1,0 +1,76 @@
+<div class="container main-container">
+
+  <h1>Buscador</h1>
+  <br>
+
+  <form>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Buscador</label>
+      <div class="col-sm-6">
+        <input class="form-control mr-sm-2" autocomplete="off"
+               type="text" [(ngModel)]="termino" name="termino"
+               placeholder="Buscar" (keyup.enter)="buscar()">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Filtro</label>
+      <div class="col-sm-6">
+        <select (change)="MostrarPre()" class="form-control" [(ngModel)]="combito" name="combito">
+          <option *ngFor="let comb of combo" [value]="comb">{{ comb }}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="mostrarPrecio" class="form-group row">
+      <label class="col-sm-2 col-form-label">Precio</label>
+      <div class="col-sm-6">
+        <select class="form-control" [(ngModel)]="combitoPrecio" name="combitoPrecio">
+          <option *ngFor="let combP of comboPrecio" [value]="combP">{{ combP }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button class="btn btn-outline-success my-2 my-sm-0"
+          type="button" (click)="buscar()">
+          Buscar
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <br>
+  <br>
+
+  <div class="row animated fadeIn fast" *ngIf="this.productoslista.length == 0 && hizoBusqueda">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        No exite resultado con el termino  {{ termino }}
+      </div>
+    </div>
+  </div>
+
+  <table *ngIf="this.productoslista.length != 0" class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>ID</th>
+        <th [class.active]="order1 === 'nombre'"
+            (click)="sortTable('nombre')">
+          Nombre
+          <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th>Precio</th>
+        <th>Categoria</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productoslista | sortingCompanies:path:order; let i = index">
+        <th>{{ producto.id }}</th>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio | currency: 'EUR' }}</td>
+        <td>{{ producto.categoria.nombre }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

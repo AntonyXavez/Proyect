@@ -1,0 +1,89 @@
+<div class="container main-container">
+
+  <div class="d-flex justify-content-between">
+    <h2>Producto</h2>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-outline-danger"
+              type="button" [routerLink]="['/productos']">
+        <i class="fas fa-ban" style="margin-right: 5px;"></i> Cancelar
+      </button>
+    </div>
+  </div>
+
+
+  <hr>
+
+  <div class="row">
+
+    <div class="col-md-5">
+
+      <form (ngSubmit)="guardarProducto()" #forma="ngForm">
+
+        <div class="form-group"
+             [ngClass]="{ 'has-danger' : nombre.errors?.minlength || nombre.errors?.patter || nombre.errors?.required && nombre.touched}">
+          <label>Nombre</label>
+          <input [(ngModel)]="producto.nombre"
+                 type="text" name="nombre"
+                 class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
+                 placeholder="Nombre" autocomplete="off"
+                 required minlength="7" #nombre="ngModel">
+                 <br>
+                 <div *ngIf="nombre.errors?.required && nombre.touched"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Este Campo es Requerido</strong>
+                </div>
+                 <div *ngIf="nombre.errors?.minlength"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Minimo {{ nombre.errors.minlength.requiredLength }} caracteres</strong>
+                </div>
+
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{ 'has-danger' : precio.errors?.minlength || precio.errors?.required && precio.touched }">
+          <label>Precio</label>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input [(ngModel)]="producto.precio" step="1"
+                   type="number" name="precio" min="0"
+                   class="form-control"  autocomplete="off"
+                   required minlength="1" #precio="ngModel">
+           </div>
+                 <br>
+                 <div *ngIf="precio.errors?.required && precio.touched"
+                      class="alert alert-danger form-control-feadback"
+                      role="alert">
+                  <strong>Este Campo es Requerido</strong>
+                </div>
+                <div *ngIf="precio.errors?.minlength && precio.touched"
+                     class="alert alert-danger form-control-feadback"
+                     role="alert">
+                 <strong>Minimo {{ precio.errors.minlength.requiredLength }} caracteres</strong>
+               </div>
+
+        </div>
+
+        <div class="form-group">
+          <label>Categoria</label>
+          <select class="form-control" [(ngModel)]="producto.categoria.id" name="categoria">
+            <option *ngFor="let categoria of _cS.categoriasList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <button [disabled]="!forma.valid"
+                  type="submit"
+                  class="btn btn-outline-primary">
+            Guardar
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
