@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ToastrModule } from 'ngx-toastr';
 
 //routes
@@ -17,11 +18,11 @@ import { KeysPipe } from './pipe/keys.pipe';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home/home.component';
-import { CategoriasComponent } from './component/categorias/categorias.component';
-import { CategoriaComponent } from './component/categoria/categoria.component';
+import { CategoriesComponent } from './component/categories/categories.component';
+import { CategoryComponent } from './component/category/category.component';
 import { ProductosComponent } from './component/productos/productos.component';
 import { ProductoComponent } from './component/producto/producto.component';
-import { BuscardorComponent } from './component/buscardor/buscardor.component';
+import { SearchComponent } from './component/search/search.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { InventarioComponent } from './component/inventario/inventario.component';
 import { SortingCompaniesPipe } from './pipe/sorting-companies.pipe';
@@ -32,12 +33,12 @@ import { SortingCategoryPipe } from './pipe/sorting-category.pipe';
   declarations: [
     AppComponent,
     HomeComponent,
-    CategoriasComponent,
+    CategoriesComponent,
     KeysPipe,
-    CategoriaComponent,
+    CategoryComponent,
     ProductosComponent,
     ProductoComponent,
-    BuscardorComponent,
+    SearchComponent,
     NavbarComponent,
     InventarioComponent,
     SortingCompaniesPipe,

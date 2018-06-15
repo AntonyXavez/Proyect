@@ -6,14 +6,14 @@ import { Product } from '../../interface/product';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-categorias',
-  templateUrl: './categorias.component.html',
-  styleUrls: ['./categorias.component.css']
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.css']
 })
-export class CategoriasComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 
   categories: Category[] = [];
-  listaOrdenada: Category[] = [];
+  listOrdered: Category[] = [];
   valor: number = 0;
   path: string[] = ['categoria'];
   order: number = 1; // 1 asc, -1 desc;
@@ -25,13 +25,21 @@ export class CategoriasComponent implements OnInit {
     private _pS: ProductosService,
      private toastr: ToastrService ){
 
-    // this._cS.cargarData();
+
+       this._cS.getCategories().subscribe( data =>{
+         console.log(JSON.stringify(data)  )
+         if (data != null) {
+           this.categories = data;
+           console.log(this.categories);
+         }
+       });
+
 
   }
 
   ngOnInit(): void {
 
-    // this.listaOrdenada = this._cS.categoriasList;
+     this.listOrdered = this._cS.categoriesList;
 
   }
 

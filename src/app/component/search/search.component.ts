@@ -4,11 +4,11 @@ import { ProductosService } from '../../providers/productos.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-buscardor',
-  templateUrl: './buscardor.component.html',
-  styleUrls: ['./buscardor.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class BuscardorComponent implements OnInit {
+export class SearchComponent implements OnInit {
 
   productoslista: any[] = [];
   listaOrdenada: any[] = [];

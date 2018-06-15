@@ -2,7 +2,7 @@
 
   <div class="d-flex justify-content-between">
     <h1>Categorias</h1>
-    <button [routerLink]="['/categoria', 'nuevo']"
+    <button [routerLink] = "['categoria','nuevo']"
     type="button"
     class="btn btn-outline-primary">
     <i class="fas fa-plus" style="margin-right: 5px;"></i>Agregar
@@ -18,29 +18,23 @@
       <tr>
         <th>No.</th>
         <th>ID</th>
-        <th [class.active]="order1 === 'nombre'"
-            (click)="sortTable('nombre')">
-          Nombre
-          <span [hidden]="reverse">▼</span
-          ><span [hidden]="!reverse">▲</span>
-        </th>
+        <th>Nombre</th>
         <th>Descripción</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let categoria of listaOrdenada | sortingCategory:path:order; let i = index">
+      <tr *ngFor="let k of categories | keys; let i = index">
         <th>{{ i + 1 }}</th>
-        <th>{{ categoria.id }}</th>
-        <td>{{ categoria.nombre }}</td>
-        <td>{{ categoria.descripcion }}</td>
+        <th>{{ categories[k].id }}</th>
+        <td>{{ categories[k].name }}</td>
+        <td>{{ categories[k].description }}</td>
         <td class="text-right w120">
-          <button [routerLink]="['/categoria', i]"
-                  type="button" class="btn btn-outline-success">
+          <button type="button" class="btn btn-outline-success">
             Editar <i class="far fa-edit"></i>
           </button>
           <!-- Button trigger modal -->
-          <button (click)="setValor(i)" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
             Eliminar <i class="far fa-trash-alt"></i>
           </button>
 
@@ -59,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Cancelar</button>
-                  <button (click)="borrarCategoria()" data-dismiss="modal"
+                  <button data-dismiss="modal"
                           type="button" class="btn btn-outline-danger">
                     Aceptar <i class="far fa-trash-alt"></i>
                   </button>

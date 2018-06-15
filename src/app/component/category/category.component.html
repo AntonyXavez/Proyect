@@ -17,49 +17,49 @@
 
     <div class="col-md-5">
 
-      <form (ngSubmit)="guardarCategoria()" #forma="ngForm">
+      <form (ngSubmit)="setCategory()" #forma="ngForm">
 
         <div class="form-group"
              [ngClass]="{ 'has-danger' : nombre.errors?.minlength || nombre.errors?.required && nombre.touched}">
           <label>Nombre</label>
-          <input [(ngModel)]="categoria.nombre"
-                 type="text" name="nombre"
+          <input [(ngModel)]="category.name"
+                 type="text" name="name"
                  class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
                  placeholder="Nombre" autocomplete="off"
                  required minlength="7" #nombre="ngModel">
                  <br>
-                 <div *ngIf="nombre.errors?.required && nombre.touched"
+                 <!-- <div *ngIf="name.errors?.required && name.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
                 </div>
-                 <div *ngIf="nombre.errors?.minlength"
+                 <div *ngIf="name.errors?.minlength"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Minimo {{ nombre.errors.minlength.requiredLength }} caracteres</strong>
-                </div>
+                </div> -->
 
         </div>
 
         <div class="form-group"
              [ngClass]="{ 'has-danger' : descripcion.errors?.minlength || descripcion.errors?.required && descripcion.touched}">
           <label>Descripción</label>
-          <input [(ngModel)]="categoria.descripcion"
-                 type="text" name="descripcion"
+          <input [(ngModel)]="category.description"
+                 type="text" name="description"
                  class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
-                 placeholder="Descripcion" autocomplete="off"
+                 placeholder="Descripción" autocomplete="off"
                  required minlength="7" #descripcion="ngModel">
                  <br>
-                 <div *ngIf="descripcion.errors?.required && descripcion.touched"
+                 <!-- <div *ngIf="description.errors?.required && description.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
                 </div>
-                <div *ngIf="descripcion.errors?.minlength"
+                <div *ngIf="description.errors?.minlength"
                      class="alert alert-danger form-control-feadback"
                      role="alert">
                  <strong>Minimo {{ descripcion.errors.minlength.requiredLength }} caracteres</strong>
-               </div>
+               </div> -->
 
         </div>
 
