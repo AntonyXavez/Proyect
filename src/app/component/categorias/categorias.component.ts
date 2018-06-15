@@ -25,13 +25,13 @@ export class CategoriasComponent implements OnInit {
     private _pS: ProductosService,
      private toastr: ToastrService ){
 
-    this._cS.cargarData();
+    // this._cS.cargarData();
 
   }
 
   ngOnInit(): void {
 
-    this.listaOrdenada = this._cS.categoriasList;
+    // this.listaOrdenada = this._cS.categoriasList;
 
   }
 
@@ -43,25 +43,25 @@ export class CategoriasComponent implements OnInit {
 
   borrarCategoria(){
 
-    let idx = this.valor;
-    let categoria: Categoria = this._cS.categoriasList[idx];
-
-    for (let producto of this._pS.productosList) {
-      if (producto.categoria.nombre == categoria.nombre) {
-        this.toastr.error('Esta Categoria esta en Uso, Elimine los productos que tiene esta categoria', 'ERROR', {
-          timeOut: 4000,
-          positionClass: 'toast-top-right'
-        });
-        return;
-      }
-    }
-
-    this._cS.borrarCategoria( idx );
-    this._cS.cargarData();
-    this.toastr.success('Operación Realizada Correctamente', 'Categoria Eliminada', {
-      timeOut: 4000,
-      positionClass: 'toast-top-right'
-    });
+    // let idx = this.valor;
+    // let categoria: Categoria = this._cS.categoriasList[idx];
+    //
+    // for (let producto of this._pS.productosList) {
+    //   if (producto.categoria.nombre == categoria.nombre) {
+    //     this.toastr.error('Esta Categoria esta en Uso, Elimine los productos que tiene esta categoria', 'ERROR', {
+    //       timeOut: 4000,
+    //       positionClass: 'toast-top-right'
+    //     });
+    //     return;
+    //   }
+    // }
+    //
+    // this._cS.borrarCategoria( idx );
+    // this._cS.cargarData();
+    // this.toastr.success('Operación Realizada Correctamente', 'Categoria Eliminada', {
+    //   timeOut: 4000,
+    //   positionClass: 'toast-top-right'
+    // });
 
   }
 

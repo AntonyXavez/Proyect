@@ -26,15 +26,12 @@ export class ProductosComponent implements OnInit {
     private _pS: ProductosService,
     private _cS: CategoriasService,
     private toastr: ToastrService
-   ){
-
-     this._pS.cargarDataProductos();
-
-  }
+   ){  }
 
   ngOnInit(): void {
 
-    this.listaOrdenada = this._pS.productosList;
+    this.listaOrdenada = this._pS.productsList;
+    console.log(this.listaOrdenada)
 
   }
 
@@ -46,16 +43,16 @@ export class ProductosComponent implements OnInit {
 
   borrarProducto(){
 
-    let idx = this.valor;
-
-    let producto: Producto = this._pS.productosList[idx];
-
-    this._pS.borrarProducto( idx );
-    this._pS.cargarDataProductos();
-    this.toastr.success('Operación Realizada Correctamente', 'Categoria Eliminada', {
-      timeOut: 4000,
-      positionClass: 'toast-top-right'
-    });
+    // let idx = this.valor;
+    //
+    // let producto: Producto = this._pS.productosList[idx];
+    //
+    // this._pS.borrarProducto( idx );
+    // this._pS.cargarDataProductos();
+    // this.toastr.success('Operación Realizada Correctamente', 'Categoria Eliminada', {
+    //   timeOut: 4000,
+    //   positionClass: 'toast-top-right'
+    // });
 
   }
 

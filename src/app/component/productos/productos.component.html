@@ -31,9 +31,9 @@
       <tr *ngFor="let producto of listaOrdenada | sortingCompanies:path:order ; let i = index">
         <th>{{ i + 1 }}</th>
         <th>{{ producto.id }}</th>
-        <td>{{ producto.nombre }}</td>
-        <td>{{ producto.precio | currency: 'EUR' }}</td>
-        <td>{{ producto.categoria.nombre }}</td>
+        <td>{{ producto.name }}</td>
+        <td>{{ producto.price | currency: 'EUR' }}</td>
+        <!-- <td>{{ producto.categoria.nombre }}</td> -->
         <td class="text-right w120">
           <button [routerLink]="['/producto', i]"
                   type="button" class="btn btn-outline-success">

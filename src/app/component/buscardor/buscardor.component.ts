@@ -39,7 +39,7 @@ export class BuscardorComponent implements OnInit {
     this.comboPrecio.push( '>' )
     this.comboPrecio.push( '<' )
 
-    this._pS.cargarDataProductos();
+    //this._pS.cargarDataProductos();
 
   }
 
@@ -75,23 +75,23 @@ export class BuscardorComponent implements OnInit {
       return;
     }
 
-    if (this.combito == 'Nombre') {
-      this.productoslista = this._pS.buscadorProductosNombre( this.termino );
-    } else if (this.combito == 'Precio') {
-      if (this.combitoPrecio == '>=') {
-        this.productoslista = this._pS.buscadorProductosPrecioMayorIgual( this.termino );
-      } else if (this.combitoPrecio == '<=') {
-          this.productoslista = this._pS.buscadorProductosPrecioMenorIgual( this.termino );
-      } else if (this.combitoPrecio == '=') {
-          this.productoslista = this._pS.buscadorProductosPrecioIgual( this.termino );
-      } else if (this.combitoPrecio == '>') {
-          this.productoslista = this._pS.buscadorProductosPrecioMayor( this.termino );
-      } else if (this.combitoPrecio == '<') {
-        this.productoslista = this._pS.buscadorProductosPrecioMenor( this.termino );
-      }
-    } else if (this.combito == 'Id') {
-      this.productoslista = this._pS.buscadorProductosId( this.termino );
-    }
+    // if (this.combito == 'Nombre') {
+    //   this.productoslista = this._pS.buscadorProductosNombre( this.termino );
+    // } else if (this.combito == 'Precio') {
+    //   if (this.combitoPrecio == '>=') {
+    //     this.productoslista = this._pS.buscadorProductosPrecioMayorIgual( this.termino );
+    //   } else if (this.combitoPrecio == '<=') {
+    //       this.productoslista = this._pS.buscadorProductosPrecioMenorIgual( this.termino );
+    //   } else if (this.combitoPrecio == '=') {
+    //       this.productoslista = this._pS.buscadorProductosPrecioIgual( this.termino );
+    //   } else if (this.combitoPrecio == '>') {
+    //       this.productoslista = this._pS.buscadorProductosPrecioMayor( this.termino );
+    //   } else if (this.combitoPrecio == '<') {
+    //     this.productoslista = this._pS.buscadorProductosPrecioMenor( this.termino );
+    //   }
+    // } else if (this.combito == 'Id') {
+    //   this.productoslista = this._pS.buscadorProductosId( this.termino );
+    // }
 
     this.hizoBusqueda = true;
 

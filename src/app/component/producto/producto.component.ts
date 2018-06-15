@@ -38,15 +38,13 @@ export class ProductoComponent implements OnInit {
     private toastr: ToastrService
   ){
 
-    this._cS.cargarData();
-
-    this.activatedRoute.params.subscribe( parametros =>{
-      this.idx = parametros['id']
-      if ( this.idx !== 'nuevo' ) {
-
-        this.producto = this._pS.productosList[this.idx]
-      }
-    })
+    // this.activatedRoute.params.subscribe( parametros =>{
+    //   this.idx = parametros['id']
+    //   if ( this.idx !== 'nuevo' ) {
+    //
+    //     this.producto = this._pS.productosList[this.idx]
+    //   }
+    // })
 
   }
 
@@ -55,38 +53,38 @@ export class ProductoComponent implements OnInit {
 
   guardarProducto(){
 
-    if (this.producto.categoria.id === 0) {
-      this.toastr.error('Debe de elegir una categoria', 'ERROR', {
-        timeOut: 4000,
-        positionClass: 'toast-top-right'
-      });
-      return;
-    }
-
-    if (this.idx != 'nuevo') {
-      this._pS.actualizarProducto( this.producto, this.idx );
-      this.toastr.success('Operación Realizada Correctamente', 'Producto Actualizado', {
-        timeOut: 4000,
-        positionClass: 'toast-top-right'
-      });
-      this.router.navigate( ['/productos'] )
-      return;
-    } else {
-      this.producto.id = Math.floor(Math.random() * 1000000)
-      let listaCategorias: Categoria[] = this._cS.categoriasList;
-      for (let categoria1 of listaCategorias) {
-          if (categoria1.id == this.producto.categoria.id) {
-              this.producto.categoria = categoria1;
-          }
-      }
-      this._pS.nuevoproducto( this.producto )
-        this.router.navigate( ['/productos'] )
-        this.toastr.success('Operación Realizada Correctamente', 'Producto Agregado', {
-          timeOut: 4000,
-          positionClass: 'toast-top-right'
-        });
-    }
-
+    // if (this.producto.categoria.id === 0) {
+    //   this.toastr.error('Debe de elegir una categoria', 'ERROR', {
+    //     timeOut: 4000,
+    //     positionClass: 'toast-top-right'
+    //   });
+    //   return;
+    // }
+    //
+    // if (this.idx != 'nuevo') {
+    //   this._pS.actualizarProducto( this.producto, this.idx );
+    //   this.toastr.success('Operación Realizada Correctamente', 'Producto Actualizado', {
+    //     timeOut: 4000,
+    //     positionClass: 'toast-top-right'
+    //   });
+    //   this.router.navigate( ['/productos'] )
+    //   return;
+    // } else {
+    //   this.producto.id = Math.floor(Math.random() * 1000000)
+    //   let listaCategorias: Categoria[] = this._cS.categoriasList;
+    //   for (let categoria1 of listaCategorias) {
+    //       if (categoria1.id == this.producto.categoria.id) {
+    //           this.producto.categoria = categoria1;
+    //       }
+    //   }
+    //   this._pS.nuevoproducto( this.producto )
+    //     this.router.navigate( ['/productos'] )
+    //     this.toastr.success('Operación Realizada Correctamente', 'Producto Agregado', {
+    //       timeOut: 4000,
+    //       positionClass: 'toast-top-right'
+    //     });
+    // }
+    //
 
   }
 

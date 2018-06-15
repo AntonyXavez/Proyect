@@ -29,54 +29,54 @@ export class CategoriaComponent implements OnInit {
     private toastr: ToastrService
   ){
 
-    this.activatedRoute.params.subscribe( parametros =>{
-      this.idx = parametros['id']
-      if ( this.idx !== 'nuevo' ) {
-        this.categoria = this._cS.categoriasList[this.idx]
-      }
-    })
+    // this.activatedRoute.params.subscribe( parametros =>{
+    //   this.idx = parametros['id']
+    //   if ( this.idx !== 'nuevo' ) {
+    //     this.categoria = this._cS.categoriasList[this.idx]
+    //   }
+    // })
 
   }
 
   ngOnInit() {
   }
 
-  guardarCategoria(){
+  // guardarCategoria(){
 
-    if ( this.idx != 'nuevo' ) {
-        this._cS.actualizarCategoria( this.categoria, this.idx );
-        this.toastr.success('Operación Realizada Correctamente', 'Categoria Actualizada', {
-          timeOut: 4000,
-          positionClass: 'toast-top-right'
-        });
-        this.verificarCategoria( this.idx );
-        this.router.navigate( ['/categorias'] )
-        return;
-    } else {
-      this.categoria.id = Math.floor(Math.random() * 1000000);
-      this._cS.nuevaCategoria( this.categoria );
-      this.router.navigate( ['/categorias'] )
-      this.toastr.success('Operación Realizada Correctamente', 'Categoria Agregada', {
-        timeOut: 4000,
-        positionClass: 'toast-top-right'
-      });
-    }
-
-  }
-
-  verificarCategoria( id: any ){
-
-    let listaProductos = JSON.parse(localStorage.getItem('ProductosList'))
-
-    for (let i = 0; i < listaProductos.length; i++) {
-        listaProductos[i];
-        if ( listaProductos[i].categoria.id == this.categoria.id ) {
-          listaProductos[i].categoria.nombre = this.categoria.nombre;
-          listaProductos[i].categoria.descripcion = this.categoria.descripcion;
-          localStorage.setItem('ProductosList', JSON.stringify(listaProductos));
-        }
-    }
-
-  }
+  //   if ( this.idx != 'nuevo' ) {
+  //       this._cS.actualizarCategoria( this.categoria, this.idx );
+  //       this.toastr.success('Operación Realizada Correctamente', 'Categoria Actualizada', {
+  //         timeOut: 4000,
+  //         positionClass: 'toast-top-right'
+  //       });
+  //       this.verificarCategoria( this.idx );
+  //       this.router.navigate( ['/categorias'] )
+  //       return;
+  //   } else {
+  //     this.categoria.id = Math.floor(Math.random() * 1000000);
+  //     this._cS.nuevaCategoria( this.categoria );
+  //     this.router.navigate( ['/categorias'] )
+  //     this.toastr.success('Operación Realizada Correctamente', 'Categoria Agregada', {
+  //       timeOut: 4000,
+  //       positionClass: 'toast-top-right'
+  //     });
+  //   }
+  //
+  // }
+  //
+  // verificarCategoria( id: any ){
+  //
+  //   let listaProductos = JSON.parse(localStorage.getItem('ProductosList'))
+  //
+  //   for (let i = 0; i < listaProductos.length; i++) {
+  //       listaProductos[i];
+  //       if ( listaProductos[i].categoria.id == this.categoria.id ) {
+  //         listaProductos[i].categoria.nombre = this.categoria.nombre;
+  //         listaProductos[i].categoria.descripcion = this.categoria.descripcion;
+  //         localStorage.setItem('ProductosList', JSON.stringify(listaProductos));
+  //       }
+  //   }
+  //
+  // }
 
 }

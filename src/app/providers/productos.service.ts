@@ -6,66 +6,35 @@ import { Producto } from '../interface/producto';
 @Injectable()
 export class ProductosService {
 
-  productosList: any[] = [];
+  productsList: any[] = [];
+  urlGetProducts: string = 'https://store-3a51c.firebaseio.com/Inventory.json'
 
   constructor( private http: Http ) {
 
-  }
-
-  cargarDataProductos(){
-
-    if ( localStorage.getItem( 'ProductosList' ) ) {
-
-      this.productosList = JSON.parse( localStorage.getItem( 'ProductosList' ) );
-
-    }
+    this.getProducts().subscribe( data=>{
+       this.productsList = data;
+       console.log(this.listaOrdenada)
+    })
 
   }
 
-  actualizarDataCategoria(){
+  getProducts(){
 
-    localStorage.setItem( 'ProductosList', JSON.stringify( this.productosList ) );
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
 
-  }
-
-  nuevoproducto( producto: Producto ){
-
-    this.productosList.push( producto );
-    localStorage.setItem( 'ProductosList', JSON.stringify( this.productosList ) );
-
-  }
-
-  actualizarProducto( producto: Producto, idx: number ){
-
-    for (let producto1 of this.productosList) {
-        if (producto1.id == producto.id) {
-            producto1 = producto;
-             this.productosList.splice( idx, 1 );
-             this.productosList.push( producto1 );
-             break;
-        }
-    }
-
-    localStorage.setItem( 'ProductosList', JSON.stringify( this.productosList ) );
-    this.actualizarDataCategoria();
-    return;
-
-  }
-
-  borrarProducto( idx: number ){
-
-    this.productosList.splice( idx, 1 );
-    this.actualizarDataCategoria();
+    return this.http.get( this.urlGetProducts, { headers } )
+                    .map( res => res.json() );
 
   }
 
   buscadorProductosNombre( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
     termino = termino.toLowerCase();
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let nombre = producto.nombre.toLowerCase();
 
@@ -81,10 +50,9 @@ export class ProductosService {
 
   buscadorProductosPrecioMayorIgual( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let precio = producto.precio;
 
@@ -100,10 +68,9 @@ export class ProductosService {
 
   buscadorProductosPrecioMenorIgual( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let precio = producto.precio;
 
@@ -119,10 +86,9 @@ export class ProductosService {
 
   buscadorProductosPrecioIgual( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let precio = producto.precio;
 
@@ -138,10 +104,9 @@ export class ProductosService {
 
   buscadorProductosPrecioMayor( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let precio = producto.precio;
 
@@ -157,10 +122,9 @@ export class ProductosService {
 
   buscadorProductosPrecioMenor( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let precio = producto.precio;
 
@@ -176,11 +140,10 @@ export class ProductosService {
 
   buscadorProductosId( termino: any ){
 
-    this.cargarDataProductos()
     let products: Producto[] = [];
     termino = termino;
 
-    for (let producto of this.productosList) {
+    for (let producto of this.productsList) {
 
       let id = producto.id;
 

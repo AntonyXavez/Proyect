@@ -68,7 +68,7 @@
         <div class="form-group">
           <label>Categoria</label>
           <select class="form-control" [(ngModel)]="producto.categoria.id" name="categoria">
-            <option *ngFor="let categoria of _cS.categoriasList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
+            <option *ngFor="let categoria of categoriesList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
           </select>
         </div>
 
