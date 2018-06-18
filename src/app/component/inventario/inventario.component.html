@@ -7,33 +7,34 @@
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">Categoria:</label>
     <div class="col-sm-6">
-      <select (change)="MostrarCate()" class="form-control" [(ngModel)]="categoria.id" name="nombre">
+      <select (change)="ShowCate()" class="form-control" [(ngModel)]="category.id" name="category">
         <option [value]="-1"></option>
-        <option *ngFor="let categoria of _cS.categoriasList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
+        <option *ngFor="let k of categoriesList | keys | sortingCompanies:path:1" [value]="k">
+          {{ categoriesList[k].name }}
+        </option>
       </select>
     </div>
   </div>
 
-  <div *ngFor="let categoria of _cS.categoriasList">
-    <div *ngIf="categoria.nombre == nombre || nombre == null">
-      <h2 *ngIf="categoria.nombre == nombre || nombre == null">Categoria: {{ categoria.nombre }} </h2>
-      <h3 *ngIf="categoria.nombre == nombre || nombre == null">Total de Productos: {{ getsum( categoria.nombre, _pS.productosList ) }}</h3>
+  <div *ngFor="let category of categoriesListK">
+    <div *ngIf="category.category.name == name || name == null">
+      <h2 *ngIf="category.category.name == name || name == null">Categoria: {{ category.category.name }} </h2>
+      <h3 *ngIf="category.category.name == name || name == null">Total de Productos: {{ getsum( category.key, productosListK ) }}</h3>
       <br>
-      <table *ngIf="categoria.nombre == nombre || nombre == null" class="table table-bordered">
+      <table *ngIf="category.category.name == name || name == null" class="table table-bordered">
         <thead class="thead-inverse">
           <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Precio</th>
-            <th>Categoria</th>
+            <th>Stock</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let producto of _pS.productosList; let i = index">
-            <th *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.id }}</th>
-            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.nombre }}</td>
-            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.precio | currency: 'EUR' }}</td>
-            <td *ngIf="producto.categoria.nombre === categoria.nombre">{{ producto.categoria.nombre }}</td>
+          <tr *ngFor="let product of productosListK | sortingCompanies:path:1; let i = index">
+            <td *ngIf="product.product.categoryId === category.key">{{ product.product.name }}</td>
+            <td *ngIf="product.product.categoryId === category.key">{{ product.product.price | currency: 'EUR' }}</td>
+            <td *ngIf="product.product.categoryId === category.key">{{ product.product.stock }}</td>
+
           </tr>
         </tbody>
       </table>

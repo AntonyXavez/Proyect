@@ -9,53 +9,81 @@ import { ProductosService } from '../../providers/productos.service';
 })
 export class InventarioComponent implements OnInit {
 
-  categoria: any = {
-    nombre: '',
+  category: any = {
+    name: '',
     id: 0,
-    descripcion: ''
+    description: ''
   };
-  nombre: any;
+  name: any;
   path: string[] = ['nombre'];
+  productosList: any[] = [];
+  productosListK: any[] = [];
+  categoriesList: any[] = [];
+  categoriesListK: any[] = [];
 
   constructor(
     private _cS: CategoriasService,
     private _pS: ProductosService
   ){
-    // this._cS.cargarData();
-    // this._pS.cargarDataProductos();
+    this._cS.getCategories().subscribe( data =>{
+      this.categoriesList = data;
+      this.categoriesListK = this.convertKeysCategory(this.categoriesList);
+    });
+
+    this._pS.getProducts().subscribe( data =>{
+      this.productosList = data;
+      this.productosListK = this.convertKeysProduct(this.productosList);
+    });
+
   }
 
-  ngOnInit() {
+  ngOnInit() {  }
+
+  getsum( keyCat, productosList: any ): number {
+
+    let sum = 0;
+
+    for (let i = 0; i < productosList.length; i++) {
+        let prod = productosList[i];
+        if (prod.product.categoryId == keyCat) {
+            sum +=1;
+        }
+    }
+
+    return sum;
+
   }
 
-  // getsum( nombre, productosList: any ): number {
-  //
-  //   let sum = 0;
-  //   let nuevalist: any[];
-  //
-  //   for (let i = 0; i < productosList.length; i++) {
-  //       let prod = productosList[i];
-  //       if (prod.categoria.nombre == nombre) {
-  //           sum +=1;
-  //       }
-  //   }
-  //
-  //   return sum;
-  //
-  // }
+  convertKeysProduct(value: any): any{
 
-  MostrarCate(){
+    let keys: any [] = [];
+    for (let key in value) {
+        keys.push({ key: key, product: value[key]});
+    }
+    return keys;
+  }
 
-    // if (this.categoria.id == '-1') {
-    //   this.nombre = null;
-    //   return;
-    // }
-    //
-    // for (let categoria of this._cS.categoriasList) {
-    //   if ( this.categoria.id == categoria.id  ) {
-    //     this.nombre = categoria.nombre;
-    //   }
-    // }
+  convertKeysCategory(value: any): any{
+
+    let keys: any [] = [];
+    for (let key in value) {
+        keys.push({ key: key, category: value[key]});
+    }
+    return keys;
+  }
+
+  ShowCate(){
+
+    if (this.category.id == '-1') {
+      this.name = null;
+      return;
+    }
+
+    for (let category of this.categoriesListK) {
+      if ( this.category.id == category.key  ) {
+        this.name = category.category.name;
+      }
+    }
 
   }
 

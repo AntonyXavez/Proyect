@@ -130,8 +130,10 @@
 
         <div class="form-group">
           <label><strong>Categoria</strong></label>
-          <select class="form-control" [(ngModel)]="producto.categoria.id" name="categoria">
-            <option *ngFor="let categoria of categoriesList | sortingCompanies:path:1" [value]="categoria.id">{{ categoria.nombre }}</option>
+          <select class="form-control" [(ngModel)]="product.categoryId" name="category">
+            <option *ngFor="let k of categoriesList | keys | sortingCompanies:path:1" [value]="k">
+              {{ categoriesList[k].name }}
+            </option>
           </select>
         </div>
 

@@ -13,16 +13,15 @@ import { SortingCompaniesPipe } from '../../pipe/sorting-companies.pipe';
 })
 export class ProductosComponent implements OnInit {
 
-  products: Product[] =[];
   listaOrdenada: Product[] = [];
-  categorias: Category[] = [];
   valor: string = '';
   path: string[] = ['producto'];
   order: number = 1; // 1 asc, -1 desc;
   reverse: boolean = false;
-  order1: string = 'nombre';
+  order1: string = 'name';
 
-  productsList: any[] = [];
+  productsList: Product[] = [];
+  categoriesList: any[] = [];
 
   constructor(
     private _pS: ProductosService,
@@ -30,8 +29,12 @@ export class ProductosComponent implements OnInit {
     private toastr: ToastrService
    ){
 
-     this._pS.getProducts().subscribe( data=>{
+     this._pS.getProducts().subscribe( data =>{
         this.productsList = data;
+     })
+
+     this._cS.getCategories().subscribe( data =>{
+       this.categoriesList = data;
      })
 
     }

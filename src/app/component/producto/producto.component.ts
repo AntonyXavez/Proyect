@@ -22,16 +22,12 @@ export class ProductoComponent implements OnInit {
     description: '',
     price: null,
     stock: null,
-    category: {
-      id: 0,
-      name: '',
-      description: ''
-    }
+    categoryId: ''
   }
 
-  categories: Category[] = [];
   idx: any;
   path: string[] = ['nombre'];
+  categoriesList: Category[] = [];
 
   constructor(
     private _pS: ProductosService,
@@ -40,6 +36,10 @@ export class ProductoComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService
   ){
+
+    this._cS.getCategories().subscribe( data =>{
+       this.categoriesList = data;
+     })
 
     this.activatedRoute.params.subscribe( parametros =>{
       this.idx = parametros['id']
@@ -59,6 +59,7 @@ export class ProductoComponent implements OnInit {
   guardarProducto(){
 
     if (this.idx == 'nuevo') {
+        this.product.id =  Math.floor(Math.random() * 1000000);
         this._pS.newProduct( this.product )
                 .subscribe(
                   data =>{

@@ -16,7 +16,7 @@
     <thead class="thead-inverse">
       <tr>
         <th>No.</th>
-        <th [class.active]="order1 === 'nombre'" (click)="sortTable('nombre')">
+        <th [class.active]="order1 === 'name'" (click)="sortTable('name')">
           Nombre
           <span [hidden]="reverse">▼</span
           ><span [hidden]="!reverse">▲</span>
@@ -25,11 +25,11 @@
         <th>Marcar</th>
         <th>Stock</th>
         <th>Descrpción</th>
+        <th>Categoria</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
-      <!-- | sortingCompanies:path:order -->
       <tr *ngFor="let k of productsList | keys | sortingCompanies:path:order ; let i = index">
         <th>{{ i + 1 }}</th>
         <td>{{ productsList[k].name }}</td>
@@ -37,7 +37,7 @@
         <td>{{ productsList[k].brand }}</td>
         <td>{{ productsList[k].stock }}</td>
         <td>{{ productsList[k].description }}</td>
-        <!-- <td>{{ producto.categoria.nombre }}</td> -->
+        <td>{{ categoriesList[productsList[k].categoryId].name }}</td>
         <td class="text-right w120">
           <button [routerLink]="['/producto', k]"
                   type="button" class="btn btn-outline-success">

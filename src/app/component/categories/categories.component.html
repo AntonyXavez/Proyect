@@ -17,7 +17,6 @@
     <thead class="thead-inverse">
       <tr>
         <th>No.</th>
-        <th>ID</th>
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Opciones</th>
@@ -26,7 +25,6 @@
     <tbody>
       <tr *ngFor="let k of categories | keys; let i = index">
         <th>{{ i + 1 }}</th>
-        <th>{{ categories[k].id }}</th>
         <td>{{ categories[k].name }}</td>
         <td>{{ categories[k].description }}</td>
         <td class="text-right w120">
