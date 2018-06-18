@@ -30,7 +30,8 @@
         <td>{{ categories[k].name }}</td>
         <td>{{ categories[k].description }}</td>
         <td class="text-right w120">
-          <button type="button" class="btn btn-outline-success">
+          <button [routerLink]="['categoria', k]"
+                  type="button" class="btn btn-outline-success">
             Editar <i class="far fa-edit"></i>
           </button>
           <!-- Button trigger modal -->

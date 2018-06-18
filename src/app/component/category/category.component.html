@@ -20,15 +20,15 @@
       <form (ngSubmit)="setCategory()" #forma="ngForm">
 
         <div class="form-group"
-             [ngClass]="{ 'has-danger' : nombre.errors?.minlength || nombre.errors?.required && nombre.touched}">
+             [ngClass]="{ 'has-danger' : name.errors?.minlength || name.errors?.required && name.touched}">
           <label>Nombre</label>
           <input [(ngModel)]="category.name"
                  type="text" name="name"
                  class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
                  placeholder="Nombre" autocomplete="off"
-                 required minlength="7" #nombre="ngModel">
+                 required minlength="7" #name="ngModel">
                  <br>
-                 <!-- <div *ngIf="name.errors?.required && name.touched"
+                 <div *ngIf="name.errors?.required && name.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
@@ -37,20 +37,20 @@
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Minimo {{ nombre.errors.minlength.requiredLength }} caracteres</strong>
-                </div> -->
+                </div>
 
         </div>
 
         <div class="form-group"
-             [ngClass]="{ 'has-danger' : descripcion.errors?.minlength || descripcion.errors?.required && descripcion.touched}">
+             [ngClass]="{ 'has-danger' : description.errors?.minlength || description.errors?.required && description.touched}">
           <label>Descripción</label>
           <input [(ngModel)]="category.description"
                  type="text" name="description"
                  class="form-control" pattern="^[a-zA-Z_-]+(?:\s+[a-zA-Z_-]+)*$"
                  placeholder="Descripción" autocomplete="off"
-                 required minlength="7" #descripcion="ngModel">
+                 required minlength="7" #description="ngModel">
                  <br>
-                 <!-- <div *ngIf="description.errors?.required && description.touched"
+                 <div *ngIf="description.errors?.required && description.touched"
                       class="alert alert-danger form-control-feadback"
                       role="alert">
                   <strong>Este Campo es Requerido</strong>
@@ -59,7 +59,7 @@
                      class="alert alert-danger form-control-feadback"
                      role="alert">
                  <strong>Minimo {{ descripcion.errors.minlength.requiredLength }} caracteres</strong>
-               </div> -->
+               </div>
 
         </div>
 

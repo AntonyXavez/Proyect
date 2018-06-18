@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../../interface/category';
+import { Product } from '../../interface/product';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -37,6 +38,8 @@ export class CategoryComponent implements OnInit {
       }
     })
 
+    this.isCategoryExist(0);
+
   }
 
   ngOnInit() {
@@ -45,18 +48,17 @@ export class CategoryComponent implements OnInit {
   setCategory(){
 
     if ( this.idx != 'nuevo' ) {
-        // this._cS.actualizarCategoria( this.categoria, this.idx );
-        // this.toastr.success('Operación Realizada Correctamente', 'Categoria Actualizada', {
-        //   timeOut: 4000,
-        //   positionClass: 'toast-top-right'
-        // });
-        // this.verificarCategoria( this.idx );
-        // this.router.navigate( ['/categorias'] )
+        this._cS.updateCategory( this.category, this.idx );
+        this.toastr.success('Operación Realizada Correctamente', 'Categoria Actualizada', {
+         timeOut: 4000,
+         positionClass: 'toast-top-right'
+        });
+        this.isCategoryExist( this.idx );
+        this.router.navigate( ['/categorias'] )
         return;
     } else {
       this.category.id = Math.floor(Math.random() * 1000000);
-      console.log(this.category)
-      this._cS.setCategory( this.category );
+      this._cS.setCategory( this.category ).subscribe(category => console.log(category));
       this.router.navigate( ['/categorias'] )
       this.toastr.success('Operación Realizada Correctamente', 'Categoria Agregada', {
         timeOut: 4000,
@@ -66,19 +68,20 @@ export class CategoryComponent implements OnInit {
 
   }
 
-  // verificarCategoria( id: any ){
-  //
-  //   let listaProductos = JSON.parse(localStorage.getItem('ProductosList'))
-  //
-  //   for (let i = 0; i < listaProductos.length; i++) {
-  //       listaProductos[i];
-  //       if ( listaProductos[i].categoria.id == this.categoria.id ) {
-  //         listaProductos[i].categoria.nombre = this.categoria.nombre;
-  //         listaProductos[i].categoria.descripcion = this.categoria.descripcion;
-  //         localStorage.setItem('ProductosList', JSON.stringify(listaProductos));
-  //       }
-  //   }
-  //
-  // }
+  isCategoryExist( id: any ){
+
+    let productList : Product[] = []
+
+    console.log("Llego a is category")
+    this._pS.getProducts().subscribe(products => {
+      console.log(products)
+      productList = products
+      });
+
+    for(let product of productList){
+      console.log(product);
+    }
+
+  }
 
 }

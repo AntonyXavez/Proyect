@@ -27,10 +27,8 @@ export class CategoriesComponent implements OnInit {
 
 
        this._cS.getCategories().subscribe( data =>{
-         console.log(JSON.stringify(data)  )
          if (data != null) {
            this.categories = data;
-           console.log(this.categories);
          }
        });
 

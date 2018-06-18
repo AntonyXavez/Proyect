@@ -36,18 +36,13 @@ export class CategoriasService {
 
   setCategory( category : Category ){
 
-    console.log(category)
-
     let body = JSON.stringify( category );
+    let url =`${ this.urlCategories }.json`
     let headers = new Headers({
       'Content-Type':'application/json'
     });
-    console.log("ANTES DEL RETURN")
-    return this.http.post( this.urlCategories, body, { headers } )
-                    .map( res =>{
-                      console.log("Respuesta : "+res)
-                      return res.json();
-                    })
+
+    return this.http.post(url, body, {headers}).map(res => res.json())
   }
 
   getCategory( key$:string ){
@@ -55,6 +50,23 @@ export class CategoriasService {
     let url = `${ this.urlCategory }/${ key$ }.json`;
     return this.http.get( url )
                     .map( res => res.json());
+
+  }
+
+  updateCategory( category: Category, key$: string ){
+
+    let body = JSON.stringify( category );
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+
+    let url = `${ this.urlCategory }/${ key$ }.json`;
+
+    return this.http.put( url, body, { headers } )
+                    .map( res =>{
+                      return res.json();
+                    })
+
 
   }
 
